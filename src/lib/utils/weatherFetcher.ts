@@ -6,7 +6,7 @@ const headers = {
   Accept: "application/json",
 };
 
-export const weatherFetcher = async (url: string) => {
+export const fetcher = async (url: string) => {
   const res = await axios.get(url, {
     headers: headers,
   });
