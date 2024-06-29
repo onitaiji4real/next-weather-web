@@ -1,8 +1,6 @@
 "use client";
 import * as React from "react";
-import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 import {
   Drawer,
   DrawerClose,
@@ -10,27 +8,52 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-
+import { CityResult } from "@/types/cityResult";
 import { Search } from "lucide-react";
-// import { FaSearch } from "react-icons/fa";
 import { Input } from "./ui/input";
+import { useEffect, useState } from "react";
+import { debounce, getSearchCityLocation } from "@/lib/utils/commomAPI";
+import { useDispatch } from "react-redux";
+import {
+  fetchWeather,
+  setLocation,
+  setCoordinates,
+} from "@/app/(Home)/weatherSlice";
+import { AppDispatch } from "@/app/(Home)/store";
 
 export default function SearchBar() {
-  const [goal, setGoal] = React.useState(350);
+  const dispatch = useDispatch<AppDispatch>();
+  const [searchWord, setSearchWord] = useState("");
 
-  function onClick(adjustment: number) {
-    setGoal(Math.max(200, Math.min(400, goal + adjustment)));
-  }
+  useEffect(() => {
+    console.log(searchWord);
 
-  // return (
-  //   <>
-  //     <FaSearch />
-  //     {/* <Input type="text" placeholder="type a city name..." /> */}
-  //   </>
-  // );
+    //  getSearchCityLocation(searchWord);
+  }, [searchWord]);
+
+  const handleSubmit = async () => {
+    if (searchWord !== null) {
+      const res: CityResult = await getSearchCityLocation(searchWord);
+      const latitude = res.results[0].latitude;
+      const longitude = res.results[0].longitude;
+      const cityName = res.results[0].name;
+      const country = res.results[0].country;
+
+      dispatch(setCoordinates({ latitude, longitude })); //修改預設的座標
+      dispatch(fetchWeather({ latitude, longitude })); //修改後呼叫
+      dispatch(setLocation({ cityName, country }));
+    }
+  };
+
+  const handleInputChange = debounce(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchWord(e.target.value);
+    },
+    650
+  );
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -46,45 +69,19 @@ export default function SearchBar() {
             </DrawerDescription>
           </DrawerHeader>
           <div className=" p-4 pb-0">
-            <Input startIcon={Search} type="text" placeholder="city name..." />
+            <Input
+              startIcon={Search}
+              type="text"
+              placeholder="city name..."
+              onChange={handleInputChange}
+            />
           </div>
-          {/* <div className="p-4 pb-0">
-            <div className="flex items-center justify-center space-x-2">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 shrink-0 rounded-full"
-                onClick={() => onClick(-10)}
-                disabled={goal <= 200}
-              >
-                <Minus className="h-4 w-4" />
-                <span className="sr-only">Decrease</span>
-              </Button>
-              <div className="flex-1 text-center">
-                <div className="text-7xl font-bold tracking-tighter">
-                  {goal}
-                </div>
-                <div className="text-[0.70rem] uppercase text-muted-foreground">
-                  Calories/day
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 shrink-0 rounded-full"
-                onClick={() => onClick(10)}
-                disabled={goal >= 400}
-              >
-                <Plus className="h-4 w-4" />
-                <span className="sr-only">Increase</span>
-              </Button>
-            </div>
-          </div> */}
+
           <DrawerFooter>
-            {/* <Button>Submit</Button>
+            <Button onClick={handleSubmit}>Search</Button>
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
-            </DrawerClose> */}
+            </DrawerClose>
           </DrawerFooter>
         </div>
       </DrawerContent>
