@@ -1,10 +1,5 @@
 "use client";
-import { weatherFetcher } from "@/lib/utils/weatherFetcher";
-import axios from "axios";
 import React from "react";
-import useSWR from "swr";
-import { getHightestTemp, getLowtestTemp } from "@/lib/utils/basicTempAPI";
-import { HourlyWeather } from "@/types/hourlyWeather";
 
 export const LocalTemperature = ({
   hightestTemp,

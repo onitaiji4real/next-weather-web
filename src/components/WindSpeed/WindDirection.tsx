@@ -3,6 +3,7 @@ import { getCurrentHourIndex } from "@/lib/utils/commomAPI";
 import { SendHorizontal } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
+import { LoaderSpin } from "../LoaderSpin";
 
 interface WindProps {
   windDirection: number;
@@ -21,7 +22,11 @@ export const WindDirection = ({ windDirection }: WindProps) => {
         size={100}
         style={{ transform: `rotate(${currentWindDirection - 90}deg)` }}
       />
-      <h2 className="text-5xl">{`${currentWindDirection}°`}</h2>
+      {data.isLoading ? (
+        <LoaderSpin />
+      ) : (
+        <h2 className="text-5xl">{`${currentWindDirection}°`}</h2>
+      )}
     </div>
   );
 };
