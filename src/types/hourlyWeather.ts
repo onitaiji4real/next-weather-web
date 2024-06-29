@@ -3,7 +3,7 @@ export type HourlyWeather = {
   latitude: number;
   longitude: number;
   country: string;
-  cityName: string;
+  name: string;
   hourly: {
     time: string[];
     temperature_2m: number[];

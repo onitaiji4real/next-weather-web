@@ -5,7 +5,7 @@ import axios from "axios";
 
 const initialState: HourlyWeather = {
   country: "Taiwan",
-  cityName: "FengShan",
+  name: "FengShan",
   isLoading: false,
   latitude: 22.6266,
   longitude: 120.3613,
@@ -43,9 +43,9 @@ const weatherSlice = createSlice({
     },
     setLocation(
       state,
-      action: PayloadAction<{ cityName: string; country: string }>
+      action: PayloadAction<{ name: string; country: string }>
     ) {
-      state.cityName = action.payload.cityName;
+      state.name = action.payload.name;
       state.country = action.payload.country;
     },
   },

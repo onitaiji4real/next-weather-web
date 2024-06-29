@@ -33,7 +33,7 @@ export default function LocalWeather() {
         ) : (
           <div className="flex flex-col items-center p-5 gap-2">
             <h2 className="text-4xl">My Location</h2>
-            <h6>{`${data.cityName}, ${data.country}`}</h6>
+            <h6>{`${data.name}, ${data.country}`}</h6>
             <p className=" text-8xl">{`${currentTemp}°`}</p>
             <div className="flex justify-center items-center gap-8">
               <LocalTemperature

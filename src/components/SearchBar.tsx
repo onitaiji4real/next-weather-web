@@ -36,14 +36,15 @@ export default function SearchBar() {
   const handleSubmit = async () => {
     if (searchWord !== null) {
       const res: CityResult = await getSearchCityLocation(searchWord);
-      const latitude = res.results[0].latitude;
-      const longitude = res.results[0].longitude;
-      const cityName = res.results[0].name;
-      const country = res.results[0].country;
-
+      const { latitude, longitude, name, country } = res.results[0];
+      // dispatch(
+      //    setCoordinates({ latitude, longitude }),
+      //   fetchWeather({ latitude, longitude }),
+      //   setLocation({ name, country })
+      // );
       dispatch(setCoordinates({ latitude, longitude })); //修改預設的座標
       dispatch(fetchWeather({ latitude, longitude })); //修改後呼叫
-      dispatch(setLocation({ cityName, country }));
+      dispatch(setLocation({ name, country }));
     }
   };
 
