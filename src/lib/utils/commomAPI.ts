@@ -1,6 +1,6 @@
 import { HourlyWeather } from "@/types/hourlyWeather";
 import { beaufortScaleMap } from "./windRange";
-const getCurrentHourIndex = () => {
+export const getCurrentHourIndex = () => {
   const now = new Date();
   return now.getHours();
 };
