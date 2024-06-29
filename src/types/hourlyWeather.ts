@@ -1,4 +1,9 @@
 export type HourlyWeather = {
+  isLoading: boolean;
+  latitude: number;
+  longitude: number;
+  country: string;
+  cityName: string;
   hourly: {
     time: string[];
     temperature_2m: number[];
