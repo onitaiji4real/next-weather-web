@@ -13,9 +13,11 @@ export const WindSpeed = () => {
   const isLoading = useSelector(
     (state: RootState) => state.weatherReducer.isLoading
   );
-  const currentWindSpeed = data.hourly.wind_speed_10m[getCurrentHourIndex()];
+  const currentWindSpeed = data.hourly.wind_speed_10m
+    ? [getCurrentHourIndex()]
+    : 0;
   const currentWindLevel = getWindSpeedToBeaufort(
-    data.hourly.wind_speed_10m[getCurrentHourIndex()]
+    data.hourly.wind_speed_10m?.[getCurrentHourIndex()] ?? 0
   );
 
   return (

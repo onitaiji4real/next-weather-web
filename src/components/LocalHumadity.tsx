@@ -7,9 +7,12 @@ import { LoaderSpin } from "./LoaderSpin";
 export const LocalHumadity = () => {
   const data = useSelector(HourlyWeatherSlice);
 
-  const currentHumadity =
-    data.hourly.relative_humidity_2m[getCurrentHourIndex()];
-  const currentDewPoint = data.hourly.dew_point_2m[getCurrentHourIndex()];
+  const currentHumadity = data.hourly.relative_humidity_2m
+    ? [getCurrentHourIndex()]
+    : 0;
+  const currentDewPoint = data.hourly.dew_point_2m
+    ? [getCurrentHourIndex()]
+    : 0;
 
   return (
     <div className=" bg-slate-400 w-[50%] min-h-60 border rounded-xl p-4">

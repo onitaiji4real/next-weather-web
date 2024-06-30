@@ -12,9 +12,8 @@ interface WindProps {
 export const WindDirection = ({ windDirection }: WindProps) => {
   const data = useSelector(HourlyWeatherSlice);
 
-  const currentWindDirection = data
-    ? data.hourly.wind_direction_10m[getCurrentHourIndex()]
-    : 0;
+  const currentWindDirection =
+    data?.hourly.wind_direction_10m?.[getCurrentHourIndex()] ?? 0;
 
   return (
     <div className="flex flex-col justify-center items-center gap-2">
