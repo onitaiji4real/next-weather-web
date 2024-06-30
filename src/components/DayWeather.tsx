@@ -18,7 +18,7 @@ export const DayWeather: React.FC<DayWeatherProps> = ({
 }) => {
   const code = getWeatherCodeDescription(weatherCode.toString());
   return (
-    <div className="border ">
+    <div className="border rounded-xl p-4">
       <h2>{`${month}/${day}`}</h2>
       <div className="flex">{`${lowTemp}° - ${highTemp}°`}</div>
 
