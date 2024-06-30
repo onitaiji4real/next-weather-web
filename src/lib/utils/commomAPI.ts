@@ -1,6 +1,7 @@
 import { HourlyWeather } from "@/types/hourlyWeather";
 import { beaufortScaleMap } from "./windRange";
 import { fetcher } from "./weatherFetcher";
+import { getHightestTemp, getLowtestTemp } from "./basicTempAPI";
 export const getCurrentHourIndex = () => {
   const now = new Date();
   return now.getHours();
@@ -42,3 +43,54 @@ export const getSearchCityLocation = async (cityName: string) => {
   const res = await fetcher(url);
   return res;
 };
+
+export function extractMonthAndDate(dateTime: string): {
+  month: string;
+  date: string;
+} {
+  const date = new Date(dateTime);
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  return { month, date: day };
+}
+
+export interface DateInfo {
+  month: string;
+  day: string;
+  highTemp: number;
+  lowTemp: number;
+  weatherCode: number;
+}
+
+export function filterFutureFiveDaysTimes(
+  times: string[],
+  temps: number[],
+  weatherCodes: number[]
+): DateInfo[] {
+  const fiveDaysTimes: DateInfo[] = [];
+  const days = new Set();
+
+  for (let i = 0; i < times.length; i += 24) {
+    const dayTemps = temps.slice(i, i + 24);
+    const dayWeatherCodes = weatherCodes.slice(i, i + 24);
+    const { month, date: day } = extractMonthAndDate(times[i]);
+    const dateString = `${month} ${day}`;
+
+    if (!days.has(dateString)) {
+      days.add(dateString);
+      fiveDaysTimes.push({
+        month,
+        day,
+        highTemp: getHightestTemp(dayTemps),
+        lowTemp: getLowtestTemp(dayTemps),
+        weatherCode: weatherCodes[0],
+      });
+    }
+
+    if (days.size >= 5) {
+      break;
+    }
+  }
+
+  return fiveDaysTimes;
+}
