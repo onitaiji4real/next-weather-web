@@ -29,19 +29,13 @@ export default function SearchBar() {
 
   useEffect(() => {
     console.log(searchWord);
-
-    //  getSearchCityLocation(searchWord);
   }, [searchWord]);
 
   const handleSubmit = async () => {
     if (searchWord !== null) {
       const res: CityResult = await getSearchCityLocation(searchWord);
       const { latitude, longitude, name, country } = res.results[0];
-      // dispatch(
-      //    setCoordinates({ latitude, longitude }),
-      //   fetchWeather({ latitude, longitude }),
-      //   setLocation({ name, country })
-      // );
+
       dispatch(setCoordinates({ latitude, longitude })); //修改預設的座標
       dispatch(fetchWeather({ latitude, longitude })); //修改後呼叫
       dispatch(setLocation({ name, country }));
