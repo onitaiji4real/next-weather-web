@@ -10,17 +10,10 @@ export const getCurrentHourIndex = () => {
 export const getCurrentWeather = (data: HourlyWeather) => {
   const currentHourIndex = getCurrentHourIndex();
 
-  const temperature = data.hourly.apparent_temperature
-    ? data.hourly.apparent_temperature[currentHourIndex]
-    : undefined;
-
-  const humidity = data.hourly.relative_humidity_2m
-    ? data.hourly.relative_humidity_2m[currentHourIndex]
-    : undefined;
-
-  const windSpeed = data.hourly.wind_speed_10m
-    ? data.hourly.wind_speed_10m[currentHourIndex]
-    : undefined;
+  const temperature =
+    data.hourly.apparent_temperature?.[currentHourIndex] ?? null;
+  const humidity = data.hourly.relative_humidity_2m?.[currentHourIndex] ?? null;
+  const windSpeed = data.hourly.wind_speed_10m?.[currentHourIndex] ?? null;
 
   return {
     temperature,
