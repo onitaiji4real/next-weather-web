@@ -1,3 +1,4 @@
+import { FutureWeather } from "@/components/FutureWeather";
 import { LocalHumadity } from "@/components/LocalHumadity";
 import LocalWeatherInfo from "@/components/LocalWeatherInfo";
 import { LocalWindSpeed } from "@/components/LocalWindSpeed";
@@ -11,6 +12,7 @@ export default function TheMain() {
         <LocalWindSpeed windDirection={146} />
         <LocalHumadity />
       </div>
+      <FutureWeather />
     </main>
   );
 }
