@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+這是一個能取得當前天氣資訊與天氣預報的網站！
 
-## Getting Started
+請參考當前部署的網址：next-weather-ncrap75uu-anguschens-projects.vercel.app
 
-First, run the development server:
+- 框架 - Next.js
+- 語言 - TypeScript
+- 樣式 - TailwindCSS
+- 套件 - lucide-react, redux,
+- API - Weather Forecast API
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+預設抓取高雄鳳山區的天氣資訊，但你也可透過搜尋來取得你城市的資訊。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+如果你想部署在你的環境，請參照以下步驟，同時請確保你的環境有 NPM。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Step.1
+clone 專案到你的裝置
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    git clone https://github.com/onitaiji4real/next-weather-web.git
 
-## Learn More
+Step.2
+安裝專案依賴項
 
-To learn more about Next.js, take a look at the following resources:
+    npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Step.3
+啟動本地服務器
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    npm run dev
